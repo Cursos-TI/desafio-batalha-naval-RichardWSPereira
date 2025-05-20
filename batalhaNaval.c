@@ -1,8 +1,7 @@
 #include <stdio.h>
 
 // Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+
 
 int main() {
     // Nível Novato - Posicionamento dos Navios
@@ -51,41 +50,145 @@ int main() {
     for (int i=9, j=7, c=0; i > 6, j < 10, c < 3; i--, j++, c++) {
         tabuleiro[i][j]=navio4[c];
     }
+
     
-    // Após isto, utilize `printf` para exibir as coordenadas de cada parte dos navios através dos loops aninhados
+    // Utiliza-se `printf` para exibir as coordenadas de cada parte dos navios através dos loops aninhados
     // Utiliza-se printf("\n") para pular a linha depois que o loop interno destinado para imprimir os valores da coluna finalizar
     // Já o loop externo é para percorrer as linhas do tabuleiro
 
     for (int linha=0; linha < 10; linha++) {
         for (int coluna=0; coluna < 10; coluna++) {
-            printf("%d ",tabuleiro[linha][coluna]);
+            printf("%d  ",tabuleiro[linha][coluna]);
         }
         printf("\n");
     }
-
-
+    printf("\n");
+    printf("\n");
 
 
     // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    // Criar matrizes para representar habilidades especiais como cone, cruz, e octaedro.
+    // Utiliza-se estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
+    // Exibimos o tabuleiro com as áreas afetadas, utilizando 5 para áreas afetadas.
 
     // Exemplos de exibição das habilidades:
+
+    /* 
+        Para preencher o tabuleiro com o efeito especial CONE utiliza-se loops aninhados com condicional no loop interno
+        Sendo que, para o preenchimento quando a condicional for verdadeira utiliza-se dois loops for, uma para preencher a base ou para preencher o meio do cone 
+        O topo do Cone foi atribuido diretamente o valor 5 no código dentro do if 
+        Utilizou a lógica que a partir que atingisse a coordenada alvo, que seria o centro do efeito especial, a área afetada seria a partir dessa coordenada
+        Portanto, tem um loop para atribuir o efeito na linha acima e abaixo da linha da coordenada alvo
+        Como também, tem o loop para atribuir o efeito para a coluna mais a esquerda como mais a direita da coluna alvo.
+        Com isto, o loop externo e interno iniciais fazem a varredura do tabuleiro preenchendo o efeito especial quando a condicional se tornar verdadeira
+         
+    */
+
     // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
+    // 0 0 5 0 0
+    // 0 5 5 5 0
+    // 5 5 5 5 5
+
+    for (int linha=0; linha < 10; linha++) {
+        for (int coluna=0; coluna < 10; coluna++) {
+            if (linha==2 && coluna==2) {
+                tabuleiro[linha-1][coluna]= 5;
+                for (int p = linha,q = coluna-1; q <= coluna+1; q++) {
+                    tabuleiro[p][q] = 5;
+                }
+                for (int p = linha+1,q = coluna-2; q <= coluna+2; q++) {
+                    tabuleiro[p][q] = 5;
+                }
+            }
+        }
+    }
+
     
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    // Agora vamos exibir através do printf o efeito especial CONE
+   
+    for (int linha=0; linha < 10; linha++) {
+        for (int coluna=0; coluna < 10; coluna++) {
+            printf("%d  ",tabuleiro[linha][coluna]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    printf("\n");
 
     // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    // 0 0 5 0 0
+    // 0 0 5 0 0
+    // 5 5 5 5 5
+    // 0 0 5 0 0
+    // 0 0 5 0 0
+ 
+
+    for (int linha=0; linha < 10; linha++) {
+        for (int coluna=0; coluna < 10; coluna++) {
+            if (linha==7 && coluna==3) {
+                for (int p = linha,q = coluna-2; q <= coluna+2; q++) {
+                    tabuleiro[p][q] = 5;
+                }
+                for (int p = linha-2,q = coluna; p <= linha+2; p++) {
+                    tabuleiro[p][q] = 5;
+                }
+            }    
+        }
+    }
+
+    // Agora vamos exibir através do printf o efeito especial CRUZ
+
+    for (int linha=0; linha < 10; linha++) {
+        for (int coluna=0; coluna < 10; coluna++) {
+            printf("%d  ",tabuleiro[linha][coluna]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    printf("\n");
+
+    // Exemplo para habilidade em octaedro:
+    // 0 0 5 0 0
+    // 0 5 5 5 0
+    // 5 5 5 5 5
+    // 0 5 5 5 0
+    // 0 0 5 0 0
+
+    /* 
+        No Octaedro vemos que é a junção do cone virado para cima e para baixo, portanto, colocamos um for destinado para o preenchimento acima da coordenada alvo e abaixo
+        Outra diferença do código do Cone é que agora tivemos que atribuir o valor 5 para a ponta inferior também
+        Portanto, tem a estrutura de repetiçaõ para a base, o efeito acima e abaixo da coordenada alvo 
+    */
+   
+    for (int linha=0; linha < 10; linha++) {
+        for (int coluna=0; coluna < 10; coluna++) {
+            if (linha==2 && coluna==7) {
+                tabuleiro[linha-2][coluna]= 5;
+                for (int p = linha+1,q = coluna-1; q <= coluna+1; q++) {
+                    tabuleiro[p][q] = 5;
+                }
+                for (int p = linha,q = coluna-2; q <= coluna+2; q++) {
+                    tabuleiro[p][q] = 5;
+                }
+                for (int p = linha-1,q = coluna-1; q <= coluna+1; q++) {
+                    tabuleiro[p][q] = 5;
+                }
+                tabuleiro[linha+2][coluna]= 5;
+            }    
+        }
+    }
+
+    // Agora vamos exibir através do printf o efeito especial OCTAEDRO
+
+    for (int linha=0; linha < 10; linha++) {
+        for (int coluna=0; coluna < 10; coluna++) {
+            printf("%d  ",tabuleiro[linha][coluna]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    printf("\n");
+
 
     return 0;
 }
